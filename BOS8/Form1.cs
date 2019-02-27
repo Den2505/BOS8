@@ -35,6 +35,7 @@ namespace BOS8
                     IniController controller = new IniController();
                     Dictionary<String, Dictionary<String, String>> ini = controller.LoadIni(ofd.FileName);
                     String localVars = @"C:\ProgramData\MySQL\MySQL Server 5.5\my.ini";
+                //    String localVars = @"C:\Users\vladi\Desktop\Самотуга\BOS8\Local configuration file.ini";
                     Dictionary<String, Dictionary<String, String>> local = controller.LoadLocalConfiguration(localVars);
                     foreach (String blockName in local.Keys)
                     {
