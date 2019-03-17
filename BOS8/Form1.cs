@@ -21,7 +21,8 @@ namespace BOS8
         public List<TextBox> textBoxList = new List<TextBox>();
         //Словарь в котором хранится пара: CheckBox:Блок к которому он относится(необходимо для четкой записи
         public Dictionary<CheckBox, String> mapCheckBox = new Dictionary<CheckBox, String>();
-
+        //Основной файл с настройками MySQL
+        public Dictionary<String, Dictionary<String, String>> ini = new Dictionary<string, Dictionary<string, string>>();
         public Form1()
         {
             InitializeComponent();
@@ -42,9 +43,10 @@ namespace BOS8
                 try
                 {
                     IniController controller = new IniController();
-                    Dictionary<String, Dictionary<String, String>> ini = controller.LoadIni(ofd.FileName);
+                    this.ini = controller.LoadIni(ofd.FileName);
                     //  String localVars = @"C:\ProgramData\MySQL\MySQL Server 5.5\my.ini";
                     String localVars = @"C:\Users\vladi\Desktop\Самотуга\BOS8\Local configuration file.ini";
+                    //String localVars = @"C:\Users\Lenovo\Desktop\Распознавание образов\CONVNET\Sharp\BOS8\Local configuration file.ini";
                     Dictionary<String, Dictionary<String, String>> local = controller.LoadLocalConfiguration(localVars);
                     tempParamBlocks = controller.LoadLocalConfiguration(localVars);
                     int i = 0;
@@ -149,7 +151,8 @@ namespace BOS8
                 }
             }
             //Короче хуй знает как там сделать чтобы он в тот файл записывал, на данном этапе он какой-то новый создаёт, я в твоем коде не зашарил
-            IniLoader.saveFile(tempParamBlocks);
+            IniController controller = new IniController();
+            IniLoader.saveFile(controller.SetUpdedParams(tempParamBlocks, ini));
             
         }
     }
